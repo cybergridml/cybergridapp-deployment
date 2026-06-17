@@ -1,7 +1,7 @@
 services:
   db:
     image: docker.io/library/postgres:15
-    container_name: nacre-db
+    container_name: cybergrid-db
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -18,7 +18,7 @@ services:
 
   app:
     build: .
-    container_name: nacre-rte
+    container_name: cybergrid-app
     depends_on:
       db:
         condition: service_healthy

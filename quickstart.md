@@ -34,7 +34,7 @@ Create a `.env` file with the following content:
 ```env
 POSTGRES_USER=dbuser
 POSTGRES_PASSWORD=dbpwd
-POSTGRES_DB=nacre_db
+POSTGRES_DB=cybergrid-db
 
 APP_PORT=9090
 DB_PORT=5433
@@ -66,7 +66,7 @@ Create a `compose.yaml` file with the following content:
 services:
   db:
     image: docker.io/library/postgres:15
-    container_name: nacre-db
+    container_name: cybergrid-db
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -83,7 +83,7 @@ services:
 
   app:
     build: .
-    container_name: nacre-rte
+    container_name: cybergrid-app
     depends_on:
       db:
         condition: service_healthy
@@ -129,7 +129,7 @@ This command:
 
 * builds the application container image;
 * starts the PostgreSQL database;
-* starts the NacreRTE application;
+* starts the CyberGridML application;
 * stores PostgreSQL data in the local `data/postgres` directory.
 
 ## Check running containers
@@ -140,21 +140,21 @@ podman ps
 
 The following containers should be running:
 
-* `nacre-db`
-* `nacre-rte`
+* `cybergrid-db`
+* `cybergrid-app`
 
 ## View logs
 
 Application logs:
 
 ```bash
-podman logs -f nacre-rte
+podman logs -f cybergrid-app
 ```
 
 PostgreSQL logs:
 
 ```bash
-podman logs -f nacre-db
+podman logs -f cybergrid-db
 ```
 
 ## Stop the application

@@ -17,7 +17,7 @@ The project directory should contain the following files:
 
 ```text
 .
-├── NacreRTE-0.0.1-SNAPSHOT.jar
+├── cybergridml-app.jar
 ├── Dockerfile
 ├── compose.yaml
 ├── .env
@@ -51,7 +51,7 @@ FROM docker.io/library/eclipse-temurin:17-jre
 
 WORKDIR /app
 
-COPY NacreRTE-0.0.1-SNAPSHOT.jar app.jar
+COPY cybergridml-app.jar app.jar
 
 EXPOSE 9090
 

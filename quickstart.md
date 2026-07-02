@@ -40,6 +40,7 @@ APP_PORT=9090
 DB_PORT=5433
 
 POSTGRES_DATA_DIR=./data/postgres
+APP_DATA_DIR=./data
 ```
 
 ## Dockerfile

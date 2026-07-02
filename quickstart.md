@@ -43,59 +43,6 @@ POSTGRES_DATA_DIR=./data/postgres
 APP_DATA_DIR=./data
 ```
 
-## Dockerfile
-
-Create a `Dockerfile` with the following content:
-
-```dockerfile
-FROM docker.io/library/eclipse-temurin:17-jre
-
-WORKDIR /app
-
-COPY cybergridml-app.jar app.jar
-
-EXPOSE 9090
-
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
-```
-
-## Compose configuration
-
-Create a `compose.yaml` file with the following content:
-
-```yaml
-services:
-  db:
-    image: docker.io/library/postgres:15
-    container_name: cybergrid-db
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
-    ports:
-      - "${DB_PORT}:5432"
-    volumes:
-      - "${POSTGRES_DATA_DIR}:/var/lib/postgresql/data:Z"
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
-      interval: 5s
-      timeout: 3s
-      retries: 10
-
-  app:
-    build: .
-    container_name: cybergrid-app
-    depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
-      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
-      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
-    ports:
-      - "${APP_PORT}:9090"
-```
-
 ## Prepare the local data directory
 
 Create the local directory used by PostgreSQL to store data:
